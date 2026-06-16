@@ -1,0 +1,70 @@
+{
+    "schema": 1,
+    "title": "Technical Digest",
+    "menu": [
+        {
+            "title": "Credits",
+            "badge": "🗎",
+            "text": [
+                "Domestia Player Choice is part of the Domestia mod family.",
+                "",
+                "The Domestia Player Choice Digest and the Domestia Player Choice Board are designed as in-game publishing devices for server communities.",
+                "",
+                "They allow an administrator, editor, or other responsible player to share important world events, server news, technical notes, travel reports, announcements, and other useful information with everyone on the server.",
+                "",
+                "The Digest is a personal handheld reader. The Board is a public notice device intended for shared spaces, settlements, hubs, and other places where players naturally gather.",
+                "",
+                "Together, they provide a simple way to turn server communication into part of the world itself, instead of leaving it outside the game in chat logs, Discord channels, or external pages.",
+                "",
+                "All visual content, menu structure, text sections, links, and page images can be replaced through a resource pack."
+            ]
+        },
+        {
+            "title": "Notice",
+            "badge": "🗎",
+            "pages": [
+                "domestia_player_choice:textures/gui/digest_default/sample_digest_notice.png"
+            ]
+        },
+        {
+            "title": "Domestia News",
+            "badge": "🗎",
+            "children": [
+                {
+                    "title": "New Landmarks",
+                    "badge": "Day 543",
+                    "pages": [
+                        "domestia_player_choice:textures/gui/digest_default/new_landmarks_001.png",
+                        "domestia_player_choice:textures/gui/digest_default/new_landmarks_002.png",
+                        "domestia_player_choice:textures/gui/digest_default/new_landmarks_003.png",
+                        "domestia_player_choice:textures/gui/digest_default/new_landmarks_004.png"
+                    ]
+                },
+                {
+                    "title": "Pazuzu Island Legacy",
+                    "badge": "Day 148",
+                    "pages": [
+                        "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_001.png",
+                        "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_002.png",
+                        "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_003.png"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Domestia Player Choice Wiki...",
+            "badge": "🌐",
+            "href": "https://github.com/domestia-mods/domestia-player-choice/wiki"
+        },
+        {
+            "title": "All Domestia Mods on GitHub...",
+            "badge": "🌐",
+            "href": "https://github.com/domestia-mods"
+        },
+        {
+            "title": "Support the Author...",
+            "badge": "🌐",
+            "href": "https://ko-fi.com/Z5X220SWVK"
+        }
+    ]
+}

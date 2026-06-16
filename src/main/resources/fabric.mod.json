@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "domestia_player_choice",
+  "version": "${version}",
+  "name": "Domestia Player Choice",
+  "description": "A player-facing digest and notice board system for dynamic server publications.",
+  "authors": [
+    "JimFixer"
+  ],
+  "contact": {
+    "homepage": "https://github.com/domestia-mods/domestia-player-choice",
+    "sources": "https://github.com/domestia-mods/domestia-player-choice",
+    "issues": "https://github.com/domestia-mods/domestia-player-choice/issues",
+    "donate": "https://ko-fi.com/Z5X220SWVK"
+  },
+  "license": "MIT",
+  "icon": "assets/domestia_player_choice/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "domestia_player_choice.DomestiaPlayerChoice"
+    ],
+    "client": [
+      "domestia_player_choice.client.DomestiaPlayerChoiceClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "fabric-api": "*",
+    "minecraft": "26.1.2",
+    "java": ">=25"
+  }
+}

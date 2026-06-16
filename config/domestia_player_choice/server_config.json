@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "required": true,
+  "httpHost": "0.0.0.0",
+  "httpPort": 25566,
+  "publicHost": "pangolin.sytes.net",
+  "prompt": "This server uses Domestia Player Choice content."
+}

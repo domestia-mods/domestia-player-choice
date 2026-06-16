@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,half=lower": {
+      "model": "domestia_player_choice:block/player_choice_board_lower_stand"
+    },
+    "facing=east,half=lower": {
+      "model": "domestia_player_choice:block/player_choice_board_lower_stand",
+      "y": 90
+    },
+    "facing=south,half=lower": {
+      "model": "domestia_player_choice:block/player_choice_board_lower_stand",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "domestia_player_choice:block/player_choice_board_lower_stand",
+      "y": 270
+    },
+    "facing=north,half=upper": {
+      "model": "domestia_player_choice:block/player_choice_board_upper"
+    },
+    "facing=east,half=upper": {
+      "model": "domestia_player_choice:block/player_choice_board_upper",
+      "y": 90
+    },
+    "facing=south,half=upper": {
+      "model": "domestia_player_choice:block/player_choice_board_upper",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "domestia_player_choice:block/player_choice_board_upper",
+      "y": 270
+    }
+  }
+}
