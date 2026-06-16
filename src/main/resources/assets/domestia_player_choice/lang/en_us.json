@@ -3,5 +3,8 @@
   "block.domestia_player_choice.info_stand": "Info Stand",
   "screen.domestia_player_choice.player_choice": "Domestia Player Choice",
   "item.domestia_player_choice.info_stand": "Info Stand",
-  "block.domestia_player_choice.info_wall_stand": "Info Stand"
+  "block.domestia_player_choice.info_wall_stand": "Info Stand",
+  "item.domestia_player_choice.info_frame": "Info Frame",
+  "block.domestia_player_choice.info_frame": "Info Frame",
+  "block.domestia_player_choice.info_wall_frame": "Info Frame"
 }

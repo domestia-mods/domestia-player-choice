@@ -24,6 +24,12 @@ public class DpcItems {
 			new Item.Properties().stacksTo(1)
 	);
 
+	public static final Item INFO_FRAME = register(
+			"info_frame",
+			InfoFrameItem::new,
+			new Item.Properties().stacksTo(1)
+	);
+
 	private static Item register(
 			String name,
 			Function<Item.Properties, Item> itemFactory,
@@ -42,6 +48,7 @@ public class DpcItems {
 	public static void initialize() {
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(output -> {
 			output.accept(INFO_PAD);
+			output.accept(INFO_FRAME);
 			output.accept(INFO_STAND);
 		});
 

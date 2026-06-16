@@ -30,6 +30,24 @@ public class DpcBlocks {
 					.noOcclusion()
 	);
 
+	public static final InfoFrameBlock INFO_FRAME = register(
+			"info_frame",
+			properties -> new InfoFrameBlock(properties, false),
+			BlockBehaviour.Properties.of()
+					.strength(2.5f, 4.0f)
+					.sound(SoundType.METAL)
+					.noOcclusion()
+	);
+
+	public static final InfoFrameBlock INFO_WALL_FRAME = register(
+			"info_wall_frame",
+			properties -> new InfoFrameBlock(properties, true),
+			BlockBehaviour.Properties.of()
+					.strength(2.5f, 4.0f)
+					.sound(SoundType.METAL)
+					.noOcclusion()
+	);
+
 	private static <T extends Block> T register(
 			String name,
 			Function<BlockBehaviour.Properties, T> blockFactory,

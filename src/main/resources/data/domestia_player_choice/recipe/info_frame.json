@@ -10,13 +10,13 @@
     "G": "minecraft:glass",
     "I": "minecraft:iron_ingot",
     "R": "minecraft:redstone",
-    "A": "minecraft:amethyst_block",
+    "A": "minecraft:amethyst_cluster",
     "M": "minecraft:gold_ingot",
     "K": "minecraft:ink_sac",
     "C": "minecraft:copper_ingot"
   },
   "result": {
-    "id": "domestia_player_choice:info_stand",
+    "id": "domestia_player_choice:info_frame",
     "count": 1
   }
 }

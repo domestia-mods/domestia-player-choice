@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_amethyst_block": {
+    "has_amethyst_cluster": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:amethyst_block"
+            "items": "minecraft:amethyst_cluster"
           }
         ]
       }
@@ -14,7 +14,7 @@
   },
   "rewards": {
     "recipes": [
-      "domestia_player_choice:info_stand"
+      "domestia_player_choice:info_frame"
     ]
   }
 }

@@ -43,10 +43,25 @@ public class InfoStandBlock extends HorizontalDirectionalBlock {
 	private static final double[][] STANDING_LOWER_BOXES_NORTH = new double[][] {
 			{1.0D, 0.0D, 6.0D, 3.0D, 2.0D, 16.0D},
 			{13.0D, 0.0D, 6.0D, 15.0D, 2.0D, 16.0D},
-			{12.0D, 0.0D, 5.0D, 14.0D, 15.856D, 15.732D},
-			{2.0D, 0.0D, 5.0D, 4.0D, 15.856D, 15.732D},
-			{4.0D, 8.794D, 11.366D, 12.0D, 15.356D, 15.732D},
 			{3.0D, 0.0D, 13.0D, 13.0D, 2.0D, 15.0D},
+
+			{2.0D, 0.0D, 5.0D, 4.0D, 4.0D, 8.25D},
+			{2.0D, 3.5D, 7.0D, 4.0D, 7.5D, 10.25D},
+			{2.0D, 7.0D, 9.0D, 4.0D, 11.0D, 12.25D},
+			{2.0D, 10.5D, 11.0D, 4.0D, 14.5D, 14.25D},
+			{2.0D, 14.0D, 13.0D, 4.0D, 16.0D, 16.0D},
+
+			{12.0D, 0.0D, 5.0D, 14.0D, 4.0D, 8.25D},
+			{12.0D, 3.5D, 7.0D, 14.0D, 7.5D, 10.25D},
+			{12.0D, 7.0D, 9.0D, 14.0D, 11.0D, 12.25D},
+			{12.0D, 10.5D, 11.0D, 14.0D, 14.5D, 14.25D},
+			{12.0D, 14.0D, 13.0D, 14.0D, 16.0D, 16.0D},
+
+			{4.0D, 8.5D, 11.0D, 12.0D, 10.5D, 12.5D},
+			{4.0D, 10.0D, 12.0D, 12.0D, 12.0D, 13.75D},
+			{4.0D, 11.5D, 13.0D, 12.0D, 13.5D, 14.75D},
+			{4.0D, 13.0D, 14.0D, 12.0D, 15.5D, 16.0D},
+
 			{4.0D, 14.0D, 15.0D, 12.0D, 16.0D, 16.0D},
 			{3.0D, 14.0D, 14.0D, 4.0D, 16.0D, 16.0D},
 			{12.0D, 14.0D, 14.0D, 13.0D, 16.0D, 16.0D}
@@ -175,7 +190,7 @@ public class InfoStandBlock extends HorizontalDirectionalBlock {
 			InteractionHand hand,
 			BlockHitResult hitResult
 	) {
-		return this.handleStandInteraction(state, level, player, hitResult);
+		return this.handleStandInteraction(state, level, pos, player);
 	}
 
 	@Override
@@ -186,11 +201,11 @@ public class InfoStandBlock extends HorizontalDirectionalBlock {
 			Player player,
 			BlockHitResult hitResult
 	) {
-		return this.handleStandInteraction(state, level, player, hitResult);
+		return this.handleStandInteraction(state, level, pos, player);
 	}
 
-	private InteractionResult handleStandInteraction(BlockState state, Level level, Player player, BlockHitResult hitResult) {
-		if (hitResult.getDirection() != state.getValue(FACING)) {
+	private InteractionResult handleStandInteraction(BlockState state, Level level, BlockPos pos, Player player) {
+		if (!isPlayerOnFrontSide(pos, state.getValue(FACING), player)) {
 			return InteractionResult.PASS;
 		}
 
@@ -199,6 +214,12 @@ public class InfoStandBlock extends HorizontalDirectionalBlock {
 		}
 
 		return InteractionResult.SUCCESS;
+	}
+
+	private static boolean isPlayerOnFrontSide(BlockPos pos, Direction facing, Player player) {
+		double dx = player.getX() - (pos.getX() + 0.5D);
+		double dz = player.getZ() - (pos.getZ() + 0.5D);
+		return dx * facing.getStepX() + dz * facing.getStepZ() > 0.0D;
 	}
 
 

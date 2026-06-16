@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=west": {
+      "model": "domestia_player_choice:block/info_frame_stand"
+    },
+    "facing=north": {
+      "model": "domestia_player_choice:block/info_frame_stand",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "domestia_player_choice:block/info_frame_stand",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "domestia_player_choice:block/info_frame_stand",
+      "y": 270
+    }
+  }
+}

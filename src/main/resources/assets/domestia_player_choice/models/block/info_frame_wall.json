@@ -1,0 +1,144 @@
+{
+  "textures": {
+    "frame": "domestia_player_choice:block/info_stand",
+    "particle": "domestia_player_choice:block/info_stand"
+  },
+  "elements": [
+    {
+      "from": [
+        15,
+        3,
+        3
+      ],
+      "to": [
+        16,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7.5,
+            0,
+            8.5,
+            7
+          ],
+          "texture": "#frame"
+        },
+        "east": {
+          "uv": [
+            0,
+            7.5,
+            7,
+            14.5
+          ],
+          "texture": "#frame"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            0,
+            8.5,
+            7
+          ],
+          "texture": "#frame"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            7,
+            7
+          ],
+          "texture": "#frame"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            0,
+            8.5,
+            7
+          ],
+          "texture": "#frame"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            0,
+            8.5,
+            7
+          ],
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        4,
+        2
+      ],
+      "to": [
+        16,
+        12,
+        4
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            12.5
+          ],
+          "texture": "#frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            12.5
+          ],
+          "texture": "#frame"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            12.5
+          ],
+          "texture": "#frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            12.5
+          ],
+          "texture": "#frame"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#frame"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            11.5,
+            8.5,
+            12.5
+          ],
+          "texture": "#frame"
+        }
+      }
+    }
+  ]
+}
