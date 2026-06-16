@@ -4,17 +4,27 @@
 
 ## 0.1.2
 
+### Added
+
+- Added Info Frame, a compact placeable catalog object with standing and wall-mounted variants.
+- Added a dedicated three-dimensional inventory model for Info Frame.
+
 ### Changed
 
 - Renamed Player Choice Digest to Info Pad.
 - Renamed Player Choice Board to Info Stand.
 - Shortened internal Java package and class naming while keeping the public Minecraft namespace as `domestia_player_choice`.
 - Removed repeated "Domestia Player Choice" prefixes from player-facing item and block names.
+- Info Pad recipe now uses an amethyst shard.
+- Info Frame recipe uses an amethyst cluster.
+- Info Stand recipe now uses an amethyst block.
+- Updated recipe-book unlock criteria to match the corresponding amethyst ingredients.
 
 ### Fixed
 
 - Info Stand now drops itself when broken.
 - Info Stand now has stronger metal-like block hardness and resistance.
+- Improved Info Stand and Info Frame selection bounds to better follow their model geometry.
 
 ## 0.1.0-alpha
 
