@@ -1,7 +1,7 @@
 <h1 align="center">Domestia Player Choice</h1>
 
 <p align="center">
-  <img src="docs/assets/DPCmod-header.png" alt="Domestia Player Choice" width="100%">
+  <img src="/docs/assets/DPCmod-header.pngg" alt="Domestia Player Choice" width="100%">
 </p>
 
 <h3 align="center">
