@@ -1,7 +1,7 @@
 {
-  "item.domestia_player_choice.player_choice_digest": "Domestia Player Choice Digest",
-  "block.domestia_player_choice.player_choice_board": "Domestia Player Choice Board",
+  "item.domestia_player_choice.info_pad": "Info Pad",
+  "block.domestia_player_choice.info_stand": "Info Stand",
   "screen.domestia_player_choice.player_choice": "Domestia Player Choice",
-  "item.domestia_player_choice.player_choice_board": "Domestia Player Choice Board",
-  "block.domestia_player_choice.player_choice_wall_board": "Domestia Player Choice Board"
+  "item.domestia_player_choice.info_stand": "Info Stand",
+  "block.domestia_player_choice.info_wall_stand": "Info Stand"
 }

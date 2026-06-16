@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BGI",
+    "RAM",
+    "BKC"
+  ],
+  "key": {
+    "B": "minecraft:stone_button",
+    "G": "minecraft:glass",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "A": "minecraft:amethyst_cluster",
+    "M": "minecraft:gold_ingot",
+    "K": "minecraft:ink_sac",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "domestia_player_choice:info_stand",
+    "count": 1
+  }
+}

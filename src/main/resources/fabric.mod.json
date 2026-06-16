@@ -3,7 +3,7 @@
   "id": "domestia_player_choice",
   "version": "${version}",
   "name": "Domestia Player Choice",
-  "description": "A player-facing digest and notice board system for dynamic server publications.",
+  "description": "A player-facing info pad and info stand system for dynamic server publications.",
   "authors": [
     "JimFixer"
   ],
@@ -18,10 +18,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "domestia_player_choice.DomestiaPlayerChoice"
+      "dpc.DpcMod"
     ],
     "client": [
-      "domestia_player_choice.client.DomestiaPlayerChoiceClient"
+      "dpc.client.DpcClient"
     ]
   },
   "depends": {

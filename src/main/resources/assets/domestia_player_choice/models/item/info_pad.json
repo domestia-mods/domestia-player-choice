@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "domestia_player_choice:item/info_pad"
+  },
+  "display": {
+    "gui": {
+      "rotation": [0, 0, -45],
+      "translation": [0, 0, 0],
+      "scale": [0.67, 0.67, 0.67]
+    }
+  }
+}

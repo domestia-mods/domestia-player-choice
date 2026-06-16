@@ -2,6 +2,20 @@
 
 ## Released
 
+## 0.1.2
+
+### Changed
+
+- Renamed Player Choice Digest to Info Pad.
+- Renamed Player Choice Board to Info Stand.
+- Shortened internal Java package and class naming while keeping the public Minecraft namespace as `domestia_player_choice`.
+- Removed repeated "Domestia Player Choice" prefixes from player-facing item and block names.
+
+### Fixed
+
+- Info Stand now drops itself when broken.
+- Info Stand now has stronger metal-like block hardness and resistance.
+
 ## 0.1.0-alpha
 
 ### Added
