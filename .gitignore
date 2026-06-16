@@ -51,3 +51,8 @@ desktop.ini
 # Local build/patch archives
 *.zip
 git-*.bat
+
+# Local Git helper scripts
+git-push.bat
+git-sync-push.bat
+git-setup.bat
