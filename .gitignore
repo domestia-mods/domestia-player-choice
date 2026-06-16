@@ -50,3 +50,4 @@ desktop.ini
 
 # Local build/patch archives
 *.zip
+git-*.bat
