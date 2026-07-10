@@ -6,6 +6,6 @@ public record PlayerChoiceIssue(
 		String id,
 		String title,
 		String date,
-		List<String> pages
+		List<String> gallery
 ) {
 }

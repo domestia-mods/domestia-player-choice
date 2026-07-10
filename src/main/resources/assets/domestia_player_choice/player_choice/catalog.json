@@ -22,7 +22,7 @@
         {
             "title": "Notice",
             "badge": "🗎",
-            "pages": [
+            "gallery": [
                 "domestia_player_choice:textures/gui/digest_default/sample_digest_notice.png"
             ]
         },
@@ -33,7 +33,7 @@
                 {
                     "title": "New Landmarks",
                     "badge": "Day 543",
-                    "pages": [
+                    "gallery": [
                         "domestia_player_choice:textures/gui/digest_default/new_landmarks_001.png",
                         "domestia_player_choice:textures/gui/digest_default/new_landmarks_002.png",
                         "domestia_player_choice:textures/gui/digest_default/new_landmarks_003.png",
@@ -43,7 +43,7 @@
                 {
                     "title": "Pazuzu Island Legacy",
                     "badge": "Day 148",
-                    "pages": [
+                    "gallery": [
                         "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_001.png",
                         "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_002.png",
                         "domestia_player_choice:textures/gui/digest_default/pazuzu_island_legacy_003.png"

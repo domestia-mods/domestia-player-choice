@@ -2,6 +2,17 @@
 
 ## Released
 
+## 0.1.3
+
+### Added
+
+- Added separator entries for visually dividing groups of catalog menu items.
+
+### Changed
+
+- Replaced the catalog `pages` field with `gallery` for image-based entries.
+- Updated the built-in fallback catalog to use the new `gallery` field.
+
 ## 0.1.2
 
 ### Added

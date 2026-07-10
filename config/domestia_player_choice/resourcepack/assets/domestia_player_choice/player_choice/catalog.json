@@ -1,218 +1,374 @@
 {
-  "schema": 1,
-  "title": "Domestia Player Choice",
-  "menu": [
-    {
-      "title": "Places to Visit",
-      "badge": "",
-      "children": [
+    "schema": 1,
+    "title": "Domestia Player Choice",
+    "menu": [
         {
-          "title": "Domestia Landmarks",
-          "badge": "",
-          "children": [
-            {
-              "title": "They Are Happy!",
-              "pages": [
-                "domestia_player_choice:pages/landmarks/2026-06-14/bc990ee8-02bc-4f44-b9c1-41cfc540cd66.png"
-              ]
-            }
-          ]
+            "title": "version",
+            "badge": "",
+            "text": [
+                "0.1.3"
+            ]
         },
         {
-          "title": "Legacy of Pazuzu Island",
-          "badge": "",
-          "children": [
-            {
-              "title": "We Love, We Remember, We Move On...",
-              "pages": [
-                "domestia_player_choice:pages/legacy/2026-06-14/c12d17d7-fcca-4c78-aac4-598ecd45131b.png"
-              ]
-            }
-          ]
+            "separator": true
+        },
+        {
+            "title": "Domestia cities",
+            "badge": "🌐",
+            "children": [
+                {
+                    "title": "Lizardhaim",
+                    "badge": "🏛️",
+                    "children": [
+                        {
+                            "title": "About Lizardhaim",
+                            "badge": "",
+                            "text": [
+                                "Coming soon..."
+                            ]
+                        },
+                        {
+                            "title": "Location",
+                            "badge": "",
+                            "text": [
+                                "Coming soon..."
+                            ]
+                        },
+                        {
+                            "title": "Shopping",
+                            "gallery": [
+                                "domestia_player_choice:gallery/bc990ee8-02bc-4f44-b9c1-41cfc540cd66.png",
+                                "domestia_player_choice:gallery/15e56510-628d-4698-bc62-ccc673fe64c3.png"
+                            ]
+                        },
+                        {
+                            "title": "Production",
+                            "badge": "",
+                            "gallery": [
+                                "domestia_player_choice:gallery/86440338-3c0b-4916-b87f-b8aa01d2b139.png",
+                                "domestia_player_choice:gallery/3ac78a5e-8d96-44f0-9b6f-d71c35efac03.png"
+                            ]
+                        },
+                        {
+                            "title": "Landsmarks",
+                            "badge": "",
+                            "gallery": [
+                                "domestia_player_choice:gallery/5a140390-c055-48d1-81d0-b500be6b64af.png",
+                                "domestia_player_choice:gallery/9d236a52-d82c-432d-83e5-390b9320034a.png"
+                            ]
+                        },
+                        {
+                            "title": "Legacy of Pazuzu Island",
+                            "gallery": [
+                                "domestia_player_choice:gallery/c12d17d7-fcca-4c78-aac4-598ecd45131b.png"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Carbonarnia",
+                    "badge": "🏠︎",
+                    "children": [
+                        {
+                            "title": "About Carbonarnia",
+                            "badge": "",
+                            "text": [
+                                "Coming soon..."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Lhasalami",
+                    "badge": "🏠︎",
+                    "children": [
+                        {
+                            "title": "About Lhasalami",
+                            "badge": "",
+                            "text": [
+                                "Coming soon..."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Official Server Players Gallery",
+            "badge": "👤",
+            "gallery": [
+                "domestia_player_choice:gallery/player_jimfixer.png",
+                "domestia_player_choice:gallery/player_tyopani.png",
+                "domestia_player_choice:gallery/common.png"
+            ]
+        },
+        {
+            "title": "Official Documents",
+            "badge": "🗎",
+            "children": [
+                {
+                    "title": "Acclamation of the Marks",
+                    "badge": "",
+                    "text": [
+                        "The First World died of indifference.",
+                        "The Second World rotted alone.",
+                        "The Third World was born from the stains they left.",
+                        "And we made those stains our stone.",
+                        "",
+                        "Domestia stands on the marks of life.",
+                        "Where no one has shit — no one has lived.",
+                        "Where no one has lived — there is only the Void.",
+                        "So leave what only the living can give.",
+                        "",
+                        "Leave your mark upon the world.",
+                        "Your shit is our shit; our shit is our marks.",
+                        "While we leave our marks — Domestia lives.",
+                        "And we stand on the scales of our hearts.",
+                        "",
+                        "So say we all!"
+                    ]
+                },
+                {
+                    "title": "Basic Rules",
+                    "badge": "",
+                    "text": [
+                        "IN SHORT",
+                        "--------",
+                        "- Do not break another player's shit unless you enjoy being Exhibit A in an admin autopsy.",
+                        "- Do not steal. Sticky fingers belong in your own pants, not in someone else's chest.",
+                        "- Do not kill without consent. Domestia is not your murder brothel.",
+                        "- Do not turn the server into a slideshow with your redstone ass-organ.",
+                        "- Do not cheat, dupe, x-ray, or crawl through bugs like a horny sewer rat.",
+                        "- Do not be the kind of asshole who makes rules longer.",
+                        "",
+                        "BASIC RULES",
+                        "-----------",
+                        "These rules are written in the legal tradition of Domestia: firm hand, raised eyebrow, and a plunger ready for civic emergencies.",
+                        "",
+                        "1. Property Is Not a Public Toilet",
+                        "If you did not build it, place it, buy it, tame it, name it, feed it, wire it, breed it, or get clear permission to touch it, keep your grubby little paws off it.",
+                        "",
+                        "Do not break, move, rotate, repaint, relabel, rebuild, decorate, undress, redress, reorganize, 'improve,' 'optimize,' or otherwise fondle another player's builds, farms, machines, roads, storage, signs, animals, displays, vending blocks, or suspiciously personal decorative choices.",
+                        "",
+                        "2. Theft Is Theft, Even When You Call It Borrowing",
+                        "Chests, barrels, shulker boxes, item frames, armor stands, displays, machines, shops, depots, hoppers, vaults, and any other player-owned container are not community nipples for you to suckle from.",
+                        "",
+                        "If the owner did not say yes, the answer is no. If the sign says public, take only what the sign permits. If the sign is missing, do not invent one in your head because your inner goblin got wet.",
+                        "",
+                        "3. PvP Requires Consent",
+                        "Killing, trapping, burning, drowning, blasting, dropping, poisoning, stabbing, lava-baptizing, bed-bombing, goat-launching, or otherwise rearranging a player's organs requires consent from that player.",
+                        "",
+                        "A prank stops being a prank when the victim needs a shovel, a rollback, or emotional support from a chicken.",
+                        "",
+                        "4. Do Not Make Domestia Smell Like Your Drama",
+                        "Spam, harassment, stalking, provocation, sealioning, tantrums, grief-baiting, fake emergencies, and constant whining are forbidden. The chat is not your diaper, and nobody volunteered to change it.",
+                        "",
+                        "5. Do Not Shit Up the World",
+                        "Remove dirt towers, random holes, half-cut trees, floating crap, abandoned scaffolds, ugly temporary bridges, creeper craters you caused, and all other architectural bowel movements you leave behind.",
+                        "",
+                        "Domestia may tolerate ruins, decay, haunted basements, cult shrines, and tasteful filth. It does not tolerate your lazy cube-vomit next to public roads.",
+                        "",
+                        "6. Do Not Fuck the TPS",
+                        "Lag machines, uncontrolled farms, mob piles, entity soup, hopper spaghetti, redstone clocks, villager orgies, and any mechanism that makes the server wheeze like a clogged toilet are forbidden.",
+                        "",
+                        "If your contraption needs a warning label, a priest, and a restart, ask first.",
+                        "",
+                        "7. Do Not Cheat Like a Cheap Bastard",
+                        "X-ray, dupes, unauthorized exploits, hacked clients, macro abuse, rule bypasses, and other unfair advantages are forbidden unless an admin explicitly approves the test.",
+                        "",
+                        "Finding a bug does not make you a pioneer. Exploiting it makes you the wet sock in the boot of civilization.",
+                        "",
+                        "8. Public Means Public, Not Yours With Extra Steps",
+                        "Spawn, hubs, roads, portals, markets, quest areas, landmarks, public farms, and public builds may not be claimed, blocked, renamed, gutted, taxed, privatized, colonized, or sexually reinterpreted without approval.",
+                        "",
+                        "You may admire public infrastructure. You may use public infrastructure. You may not rub your ego on it until it smells like ownership.",
+                        "",
+                        "9. Report Holes Before You Crawl Into Them",
+                        "If you find a protection gap, duplication trick, broken vendor, weird owner bug, or any other crack in the floorboards, report it to an admin.",
+                        "",
+                        "Do not stick your whole head in the crack and then act surprised when the law grabs you by the ass.",
+                        "",
+                        "10. Admin Judgment Is the Final Plunger",
+                        "If these rules do not cover a situation, an admin decides. Discussion is allowed. Courtroom cosplay, rage essays, and interpretive bullshit are not binding legal instruments.",
+                        "",
+                        "The admin may restore, remove, compensate, jail, warn, forgive, laugh, or drop the hammer as needed to keep Domestia playable and only moderately deranged."
+                    ]
+                },
+                {
+                    "title": "Player Bill of Rights",
+                    "badge": "",
+                    "text": [
+                        "IN SHORT",
+                        "--------",
+                        "- You have the right to play in peace without some wandering ass-ferret wrecking your evening.",
+                        "- You have the right to own property and not have it fingered by strangers.",
+                        "- You have the right to a home, a door, a lock, and reasonable home defense.",
+                        "- You have the right to bear arms, not to become a public menace with them.",
+                        "- You have the right to trade, refuse, gather, complain, and be heard.",
+                        "- You have the right to admin help when the shit hits the fan.",
+                        "- You do not have the right to elect the admin, impeach the admin, or audit the divine plumbing.",
+                        "",
+                        "PLAYER BILL OF RIGHTS",
+                        "---------------------",
+                        "By the questionable grace of Great Pazuzu and the practical need to keep idiots from biting each other in the marketplace, the following rights are recognized in Domestia.",
+                        "",
+                        "I. Right to a Peaceful Game",
+                        "Every player has the right to play without griefing, theft, harassment, stalking, toxicity, non-consensual killing, or some bored cave goblin humping their patience to death.",
+                        "",
+                        "This right includes the right to be left the hell alone when a player clearly does not want PvP, drama, quests, cult recruitment, business proposals, or unsolicited tours of your suspicious basement.",
+                        "",
+                        "II. Right to Property",
+                        "A player's builds, farms, machines, items, animals, shops, signs, books, named objects, displays, decorative crimes, and reasonably claimed land belong to that player.",
+                        "",
+                        "Ownership does not vanish because the owner logged off, got distracted, died in a hole, or trusted society more than society deserved.",
+                        "",
+                        "III. Right to a Home",
+                        "Every player may build a base and call it home, provided it does not squat on public areas, block shared infrastructure, or spread across the map like an untreated rash.",
+                        "",
+                        "A home may be cozy, fortified, ugly, cursed, romantic, industrial, underwater, underground, or architecturally shaped like a bad decision. If it is yours and legal, it is yours.",
+                        "",
+                        "IV. Right to Defend the Home",
+                        "On their own land, players may defend themselves, their property, and their home. Domestia recognizes a Texas-flavored Castle Doctrine with fewer forms and more shotgun energy.",
+                        "",
+                        "Traps and defenses must not become public murder toilets. If a visitor dies because they ignored warnings and crawled into your danger hole, that is a learning experience. If random passersby explode on the road, that is your problem.",
+                        "",
+                        "V. Right to Bear Arms",
+                        "Players may own weapons, armor, traps, defensive mechanisms, dogs, bees, angry goats, and whatever else the game allows, provided they are not used for griefing, terror, extortion, or non-consensual murder.",
+                        "",
+                        "Owning a big sword does not make your dick longer. It only means you can be held responsible for where you swing it.",
+                        "",
+                        "VI. Right to Assemble",
+                        "Players may gather, team up, form towns, markets, guilds, clubs, cults, pirate crews, suspicious book circles, and other organizations with poor branding choices.",
+                        "",
+                        "Assembly is protected unless the group exists mainly to break rules, bully players, clog public spaces, or produce drama thick enough to pave a sewer.",
+                        "",
+                        "VII. Right to Trade",
+                        "Players may sell, buy, barter, rent, donate, auction, and set their own prices, even when those prices look like they were calculated by a drunk villager with a gambling problem.",
+                        "",
+                        "Players also have the sacred right to be brutally fucked by a vendor like the last shit-for-brains sucker at the counter, because some naive little degenerate decided capitalism was probably just a spooky bedtime story.",
+                        "",
+                        "VIII. Right to Refuse",
+                        "No player is required to join PvP, quests, trades, builds, events, towns, jokes, religions, cults, expeditions, emotional spirals, or anyone else's grand plan to become mayor of a mud puddle.",
+                        "",
+                        "No means no, even when delivered politely, silently, or with the unmistakable body language of logging off.",
+                        "",
+                        "IX. Right to Admin Help",
+                        "Players may ask an admin for help with disputes, bugs, theft, griefing, conflicts, technical problems, vanished property, broken protections, or any incident where the server starts smelling like legal diarrhea.",
+                        "",
+                        "Admin help is not a magical butler service. Bring facts, screenshots if possible, and at least one functioning brain cell.",
+                        "",
+                        "X. Right to Be Heard",
+                        "Before punishment, a player has the right to explain their side unless the situation is so obvious that even a fence post would convict them.",
+                        "",
+                        "Being heard does not mean being believed, obeyed, applauded, or allowed to filibuster until everyone dies of boredom.",
+                        "",
+                        "XI. Right to Damage Recovery",
+                        "If a player suffers loss from a bug, griefing, theft, admin error, broken protection, or some other recognized catastrophe, they may request reasonable compensation.",
+                        "",
+                        "Reasonable compensation means restoration or equivalent support, not a golden palace, a stack of netherite, and a pity parade with erotic trumpet music.",
+                        "",
+                        "XII. Right to Create",
+                        "Players may build, decorate, write, roleplay, engineer, terraform, worship, parody, and develop projects in their own style, as long as they do not ruin the world or weaponize ugliness near public areas.",
+                        "",
+                        "Creative freedom includes bad taste. It does not include turning spawn into a toilet monument unless the monument is approved, structurally sound, and historically important.",
+                        "",
+                        "XIII. Right to Equal Rules",
+                        "The rules apply equally to all players. Friendship, seniority, wealth, loudness, tragic backstory, or heroic levels of ass-kissing do not create a private constitution.",
+                        "",
+                        "The only exception is when Great Pazuzu has already made the call, in which case the universe has closed its buttocks and the matter is settled.",
+                        "",
+                        "XIV. Right Not to Elect the Admin",
+                        "Players have no right to elect, re-elect, remove, impeach, audit, subpoena, excommunicate, overthrow, seduce, or constitutionally fondle the server admin.",
+                        "",
+                        "Domestia is many things. A democracy is not one of them."
+                    ]
+                },
+                {
+                    "title": "Duties of Players",
+                    "badge": "",
+                    "text": [
+                        "IN SHORT",
+                        "--------",
+                        "- Respect Domestia, its symbols, and its official documents, even when they smell faintly of beer and sewage.",
+                        "- Keep public places usable instead of turning them into your personal ass-shed.",
+                        "- Clean up your own mess before it becomes a protected archaeological layer.",
+                        "- Report bugs, dupes, protection holes, and suspicious miracles.",
+                        "- Trade honestly, repair damage, and do not drag unwilling people into your bullshit.",
+                        "- Keep your builds server-friendly, your machines sane, and your mobs out of orgy mode.",
+                        "- Accept admin judgment after review, even if your inner goblin screams into its sock.",
+                        "",
+                        "DUTIES OF PLAYERS",
+                        "-----------------",
+                        "Rights are not a decorative codpiece. Every player enjoying the protection of Domestia also carries the following duties, whether they like it or not.",
+                        "",
+                        "I. Duty to Respect Domestia",
+                        "Players must respect Domestia, its name, flag, symbols, official documents, public institutions, landmarks, roads, depots, markets, and other civic furniture not meant for chewing.",
+                        "",
+                        "Mockery is allowed. Satire is welcome. Desecration, griefing, and smearing your personal stupidity on public symbols is not protected expression; it is just vandalism wearing a clown nose.",
+                        "",
+                        "II. Duty to Protect Public Places",
+                        "Spawn, roads, portals, hubs, quest areas, markets, public farms, public depots, bridges, signs, and shared builds must remain clean, accessible, functional, and not shaped entirely by one player's bowel movement.",
+                        "",
+                        "If you use a public place, do not leave it worse. The road is not your ashtray. The portal room is not your storage colon. The marketplace is not where your abandoned dirt stack goes to die.",
+                        "",
+                        "III. Duty to Clean Up",
+                        "Players must remove temporary blocks, dirt towers, random holes, half-cut trees, scaffolding, mining scars, creeper craters they caused, accidental lava art, and any other crap trail left by their majestic incompetence.",
+                        "",
+                        "Temporary means temporary. If your 'temporary' structure survives longer than a medieval dynasty, it is no longer temporary; it is evidence.",
+                        "",
+                        "IV. Duty to Mark Danger",
+                        "Players must mark or secure dangerous holes, lava, traps, portals, farms, machines, redstone contraptions, exposed drops, hostile mobs, and other surprises capable of converting a visitor into paste.",
+                        "",
+                        "A warning sign is cheaper than a corpse, and less likely to make the admin arrive with the legal plunger.",
+                        "",
+                        "V. Duty to Report Problems",
+                        "Players must report bugs, dupes, protection holes, lag sources, broken ownership, strange item behavior, and weird mod shit to an admin instead of exploiting it like a raccoon in a pharmacy dumpster.",
+                        "",
+                        "A bug report is civic service. A secret exploit is foreplay with punishment.",
+                        "",
+                        "VI. Duty of Honest Trade",
+                        "Players must make goods, prices, stock, payment terms, delivery rules, and limitations clear. If your shop requires a lawyer, a séance, and three suspicious winks to understand, fix the damn shop.",
+                        "",
+                        "Scams, hidden terms, fake scarcity, fake public access, bug-trading, and other greasy merchant bullshit are not entrepreneurship. They are just theft with a tiny hat.",
+                        "",
+                        "VII. Duty to Repair Damage",
+                        "If a player breaks, floods, burns, blasts, steals, releases, deletes, misroutes, mislabels, or otherwise fucks something up by accident, they must own it and help repair the damage.",
+                        "",
+                        "'I didn't mean to' may reduce anger. It does not rebuild the wall, replace the sheep, or unpiss the soup.",
+                        "",
+                        "VIII. Duty to Respect Other Players' Peace",
+                        "Players must not force PvP, quests, trades, builds, events, religions, cults, jokes, roleplay, romance, town politics, or any other nonsense onto people who do not want in.",
+                        "",
+                        "Consent is not a hidden redstone switch you keep clicking until it opens. Leave people alone when they decline.",
+                        "",
+                        "IX. Duty to Protect Server Performance",
+                        "Players must keep farms, mobs, villagers, item flows, hoppers, redstone, storage systems, and automated machines from turning Domestia into a constipated slideshow.",
+                        "",
+                        "If your machine sounds clever only because nobody has counted the entities yet, it is probably a butt-powered disaster waiting for sunrise.",
+                        "",
+                        "X. Duty to Maintain What You Use",
+                        "If players use a public road, portal, farm, market, depot, hub, mine entrance, or shared utility, they must not damage it and should fix obvious small problems when they can.",
+                        "",
+                        "Replace what you break. Replant what you harvest. Close what you open. Do not wander through civilization like a lubricated skeleton with no pockets.",
+                        "",
+                        "XI. Duty to Speak Facts",
+                        "In disputes, players must explain what happened with dates, places, items, names, screenshots, or any useful evidence they have. Vague whining and theatrical ass-fog are not testimony.",
+                        "",
+                        "The admin needs facts, not a twelve-act opera about how your soul was bruised by a missing carrot.",
+                        "",
+                        "XII. Duty to Accept Admin Judgment",
+                        "After review, players must accept the admin's decision, even if they disagree, sulk, or feel an ancestral need to argue until the sun grows hair.",
+                        "",
+                        "You may appeal with new facts. You may not keep chewing the same bone until everyone involved smells like dog spit.",
+                        "",
+                        "LIMIT OF DUTIES",
+                        "---------------",
+                        "No duty cancels player rights, forces anyone to surrender personal property, requires unwanted participation, or permits violation of the Basic Rules.",
+                        "",
+                        "Duties exist so Domestia remains playable, filthy in the right places, and free from the kind of lawless ass-soup that makes admins consider farming potatoes instead of people."
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      "title": "Official Documents",
-      "badge": "🗎",
-      "children": [
-        {
-          "title": "Basic Rules",
-          "badge": "",
-          "text": [
-            "IN SHORT",
-            "--------",
-            "- Don't break shit.",
-            "- Don't steal shit.",
-            "- Don't kill without consent.",
-            "- Don't lag the server.",
-            "- Don't cheat without approval.",
-            "- Don't be an asshole.",
-            "",
-            "BASIC RULES",
-            "-----------",
-            "1. Don't touch what isn't yours",
-            "Do not break, change, move, or rebuild other players' builds, farms, machines, roads, or decorations without the owner's permission.",
-            "",
-            "2. Don't steal",
-            "Chests, barrels, shulker boxes, item frames, armor stands, displays, vending machines, and any other player-owned stuff are off-limits unless you have explicit permission from the owner.",
-            "",
-            "3. PvP requires consent",
-            "Killing, traps, lava, fire, explosions, or any other way of harming a player are forbidden without that player's consent.",
-            "",
-            "4. Don't ruin the game for others",
-            "Spam, toxicity, harassment, stalking, provocation, and deliberate annoyance are forbidden.",
-            "",
-            "5. Don't trash the world",
-            "Do not leave dirt towers, random holes, half-cut trees, abandoned ruins, or other visual garbage near shared areas.",
-            "",
-            "6. Don't lag the server",
-            "Lag machines, uncontrolled farms, mob piles, and mechanisms that noticeably tank TPS are forbidden.",
-            "",
-            "7. Don't cheat",
-            "Cheats, x-ray, dupes, exploits, rule bypasses, and any unfair advantages are forbidden without prior approval.",
-            "",
-            "8. Public means public",
-            "Spawn, hubs, roads, portals, quest areas, and public builds may not be claimed, broken, or modified without approval.",
-            "",
-            "9. Don't exploit bugs",
-            "Found a bug, protection hole, or weird mod behavior? Report it to an admin. Using it for your own gain is forbidden.",
-            "",
-            "10. Admins settle disputes",
-            "If the rules don't cover a situation, an admin makes the call. Discussion is fine. Drama is not."
-          ]
-        },
-        {
-          "title": "Player Bill of Rights",
-          "badge": "",
-          "text": [
-            "IN SHORT",
-            "--------",
-            "- Right to a peaceful, cozy game.",
-            "- Right to personal property.",
-            "- Right to a home and home defense.",
-            "- Right to bear arms.",
-            "- Right to assemble.",
-            "- Right to fair trade.",
-            "- Right to refuse.",
-            "- Right to admin help.",
-            "- Right to be heard.",
-            "- There is no right to elect the admin.",
-            "",
-            "PLAYER BILL OF RIGHTS",
-            "---------------------",
-            "I. Right to a Peaceful Game",
-            "Players have the right to play without griefing, theft, harassment, stalking, toxicity, or non-consensual killing.",
-            "",
-            "II. Right to Property",
-            "A player's builds, farms, machines, items, animals, shops, and reasonably claimed land belong to that player.",
-            "",
-            "III. Right to a Home",
-            "Players have the right to build a base and call it home, as long as it does not claim public areas or interfere with other projects.",
-            "",
-            "IV. Right to Defend the Home",
-            "On their own land, players may defend themselves, their property, and their home. The server recognizes a Texas-flavored Castle Doctrine, no bullshit bureaucracy attached.",
-            "",
-            "V. Right to Bear Arms",
-            "Players have the right to own weapons, armor, traps, and defensive mechanisms, as long as they are not used for griefing, terror, or non-consensual killing.",
-            "",
-            "VI. Right to Assemble",
-            "Players may gather, team up, form towns, markets, clubs, cults, and other suspicious organizations, as long as they do not break server rules.",
-            "",
-            "VII. Right to Trade",
-            "Players may sell, buy, barter, and set their own prices, as long as every deal is honest and voluntary.",
-            "",
-            "VIII. Right to Refuse",
-            "Players are not required to join PvP, quests, trades, builds, events, or anyone else's plans against their will.",
-            "",
-            "IX. Right to Admin Help",
-            "Players may ask an admin for help with disputes, bugs, theft, griefing, conflicts, or technical problems.",
-            "",
-            "X. Right to Be Heard",
-            "Before punishment, a player has the right to explain their side, unless the situation is obvious.",
-            "",
-            "XI. Right to Damage Recovery",
-            "If a player suffers loss from a bug, griefing, or admin error, they may request reasonable compensation.",
-            "",
-            "XII. Right to Create",
-            "Players may build, decorate, and develop their projects in their own style, as long as it does not ruin the game for others.",
-            "",
-            "XIII. Right to Equal Rules",
-            "The rules apply equally to all players, except when Great Pazuzu has already made the call.",
-            "",
-            "XIV. Right Not to Elect the Admin",
-            "Players have no right to elect, re-elect, remove, impeach, audit, or question the legitimacy of the server admin."
-          ]
-        },
-        {
-          "title": "Duties of Players",
-          "badge": "",
-          "text": [
-            "IN SHORT",
-            "--------",
-            "- Players must respect Domestia, its flag, symbols, and official documents.",
-            "- Players must keep public places clean and usable.",
-            "- Players must clean up their own mess.",
-            "- Players must report bugs, dupes, and protection holes.",
-            "- Players must trade honestly.",
-            "- Players must fix damage they caused.",
-            "- Players must not drag others into unwanted bullshit.",
-            "- Players must keep their builds server-friendly.",
-            "- Players must accept admin decisions.",
-            "",
-            "DUTIES OF PLAYERS",
-            "-----------------",
-            "I. Duty to Respect Domestia",
-            "Players must respect Domestia, its name, flag, symbols, official documents, and public institutions. Mockery is allowed. Desecration is not.",
-            "",
-            "II. Duty to Protect Public Places",
-            "Spawn, roads, portals, hubs, quest areas, markets, and public builds must remain clean, accessible, and functional.",
-            "",
-            "III. Duty to Clean Up",
-            "Players must remove temporary blocks, dirt towers, random holes, half-cut trees, abandoned junk, and other crap they leave behind.",
-            "",
-            "IV. Duty to Mark Danger",
-            "Players must mark or secure dangerous holes, lava, traps, portals, farms, and machines that may accidentally kill people or wreck someone's day.",
-            "",
-            "V. Duty to Report Problems",
-            "Players must report bugs, dupes, protection holes, lag sources, and weird mod behavior to an admin instead of exploiting that shit.",
-            "",
-            "VI. Duty of Honest Trade",
-            "Players must make goods, prices, and deal terms clear. Scams, bug-trading, and shady bullshit are not service to Domestia.",
-            "",
-            "VII. Duty to Repair Damage",
-            "If a player breaks, floods, burns, blows up, steals, or otherwise fucks something up by accident, they must own it and help repair the damage.",
-            "",
-            "VIII. Duty to Respect Other Players' Peace",
-            "Players must not force PvP, quests, trades, builds, events, religions, cults, or other nonsense onto people who do not want in.",
-            "",
-            "IX. Duty to Protect Server Performance",
-            "Players must keep farms, mobs, machines, storage systems, and redstone from turning Domestia into a slideshow.",
-            "",
-            "X. Duty to Maintain What You Use",
-            "If players use a public road, portal, farm, market, or hub, they must not make it worse and should fix obvious small problems when they can.",
-            "",
-            "XI. Duty to Speak Facts",
-            "In disputes, players must explain what happened instead of starting drama, tantrums, or courtroom cosplay made of mud and sticks.",
-            "",
-            "XII. Duty to Accept Admin Judgment",
-            "After review, players must accept the admin's decision, even if their inner goblin strongly disagrees.",
-            "",
-            "LIMIT OF DUTIES",
-            "---------------",
-            "No duty cancels player rights, forces anyone to give up personal property, requires unwanted participation, or permits violation of the Basic Rules."
-          ]
-        },
-        {
-          "title": "Official Server Players Gallery",
-          "badge": "👤",
-          "pages": [
-            "domestia_player_choice:pages/official/players/player_jimfixer.png",
-            "domestia_player_choice:pages/official/players/player_tyopani.png",
-            "domestia_player_choice:pages/official/players/common.png"
-          ]
-        }
-      ]
-    }
-  ]
+    ]
 }

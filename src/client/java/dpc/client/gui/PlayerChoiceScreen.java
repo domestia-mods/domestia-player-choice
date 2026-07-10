@@ -265,7 +265,7 @@ public class PlayerChoiceScreen extends Screen {
 
 	private void renderPageViewer(GuiGraphicsExtractor graphics) {
 		if (this.currentPages.isEmpty()) {
-			graphics.centeredText(this.font, Component.literal("No pages available."), this.width / 2, this.height / 2, 0xFFFFFFFF);
+			graphics.centeredText(this.font, Component.literal("No gallery images available."), this.width / 2, this.height / 2, 0xFFFFFFFF);
 			return;
 		}
 
@@ -292,6 +292,10 @@ public class PlayerChoiceScreen extends Screen {
 	}
 
 	private void openNode(PlayerChoiceMenuNode node) {
+		if (node.isSeparator()) {
+			return;
+		}
+
 		if (node.hasChildren()) {
 			this.menuHistory.push(new MenuState(this.currentMenuTitle, this.currentMenu));
 			this.currentMenuTitle = node.title();
@@ -301,9 +305,9 @@ public class PlayerChoiceScreen extends Screen {
 			return;
 		}
 
-		if (node.hasPages()) {
+		if (node.hasGallery()) {
 			this.mode = PlayerChoiceScreenMode.PAGE_VIEWER;
-			this.currentPages = node.pages();
+			this.currentPages = node.gallery();
 			this.currentPageIndex = 0;
 			this.rebuildNavigationWidgets();
 			return;

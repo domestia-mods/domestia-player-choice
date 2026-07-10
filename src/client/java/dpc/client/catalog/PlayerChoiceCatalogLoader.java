@@ -84,10 +84,20 @@ public final class PlayerChoiceCatalogLoader {
 	}
 
 	private static PlayerChoiceMenuNode parseMenuNode(JsonObject object, String path) {
+		boolean separator = getOptionalBoolean(object, "separator", false);
+
+		if (separator) {
+			if (object.size() != 1) {
+				throw new IllegalArgumentException(path + " separator must not contain other fields.");
+			}
+
+			return PlayerChoiceMenuNode.createSeparator();
+		}
+
 		String title = getRequiredString(object, "title");
 		String badge = getOptionalString(object, "badge");
 		boolean hasChildren = object.has("children") && !object.get("children").isJsonNull();
-		boolean hasPages = object.has("pages") && !object.get("pages").isJsonNull();
+		boolean hasGallery = object.has("gallery") && !object.get("gallery").isJsonNull();
 		String href = getOptionalString(object, "href");
 		boolean hasHref = href != null && !href.isBlank();
 		boolean hasText = object.has("text") && !object.get("text").isJsonNull();
@@ -96,7 +106,7 @@ public final class PlayerChoiceCatalogLoader {
 		if (hasChildren) {
 			actionCount++;
 		}
-		if (hasPages) {
+		if (hasGallery) {
 			actionCount++;
 		}
 		if (hasHref) {
@@ -107,26 +117,26 @@ public final class PlayerChoiceCatalogLoader {
 		}
 
 		if (actionCount != 1) {
-			throw new IllegalArgumentException(path + " must contain exactly one of: children, pages, href, text.");
+			throw new IllegalArgumentException(path + " must contain exactly one of: children, gallery, href, text.");
 		}
 
 		List<PlayerChoiceMenuNode> children = List.of();
-		List<Identifier> pages = List.of();
+		List<Identifier> gallery = List.of();
 		List<String> text = List.of();
 
 		if (hasChildren) {
 			children = parseMenuNodes(getRequiredArray(object, "children"), path + ".children");
 		}
 
-		if (hasPages) {
-			pages = parsePageIdentifiers(getRequiredArray(object, "pages"), path + ".pages");
+		if (hasGallery) {
+			gallery = parseGalleryIdentifiers(getRequiredArray(object, "gallery"), path + ".gallery");
 		}
 
 		if (hasText) {
 			text = parseTextLines(getRequiredArray(object, "text"), path + ".text");
 		}
 
-		return new PlayerChoiceMenuNode(title, badge, children, pages, href, text);
+		return new PlayerChoiceMenuNode(title, badge, children, gallery, href, text, false);
 	}
 
 	private static List<String> parseTextLines(JsonArray array, String path) {
@@ -149,7 +159,7 @@ public final class PlayerChoiceCatalogLoader {
 		return List.copyOf(lines);
 	}
 
-	private static List<Identifier> parsePageIdentifiers(JsonArray array, String path) {
+	private static List<Identifier> parseGalleryIdentifiers(JsonArray array, String path) {
 		List<Identifier> identifiers = new ArrayList<>();
 
 		for (int index = 0; index < array.size(); index++) {
@@ -169,7 +179,7 @@ public final class PlayerChoiceCatalogLoader {
 		}
 
 		if (identifiers.isEmpty()) {
-			throw new IllegalArgumentException(path + " must contain at least one page.");
+			throw new IllegalArgumentException(path + " must contain at least one gallery image.");
 		}
 
 		return List.copyOf(identifiers);
@@ -197,6 +207,20 @@ public final class PlayerChoiceCatalogLoader {
 		}
 
 		return element.getAsString();
+	}
+
+	private static boolean getOptionalBoolean(JsonObject object, String name, boolean fallback) {
+		if (!object.has(name) || object.get(name).isJsonNull()) {
+			return fallback;
+		}
+
+		JsonElement element = object.get(name);
+
+		if (!element.isJsonPrimitive() || !element.getAsJsonPrimitive().isBoolean()) {
+			throw new IllegalArgumentException("Field must be a boolean: " + name);
+		}
+
+		return element.getAsBoolean();
 	}
 
 	private static int getInt(JsonObject object, String name, int fallback) {

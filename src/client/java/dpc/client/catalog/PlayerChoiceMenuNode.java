@@ -8,16 +8,21 @@ public record PlayerChoiceMenuNode(
 		String title,
 		String badge,
 		List<PlayerChoiceMenuNode> children,
-		List<Identifier> pages,
+		List<Identifier> gallery,
 		String href,
-		List<String> text
+		List<String> text,
+		boolean separator
 ) {
+	public static PlayerChoiceMenuNode createSeparator() {
+		return new PlayerChoiceMenuNode(null, null, List.of(), List.of(), null, List.of(), true);
+	}
+
 	public boolean hasChildren() {
 		return this.children != null && !this.children.isEmpty();
 	}
 
-	public boolean hasPages() {
-		return this.pages != null && !this.pages.isEmpty();
+	public boolean hasGallery() {
+		return this.gallery != null && !this.gallery.isEmpty();
 	}
 
 	public boolean hasHref() {
@@ -28,7 +33,15 @@ public record PlayerChoiceMenuNode(
 		return this.text != null && !this.text.isEmpty();
 	}
 
+	public boolean isSeparator() {
+		return this.separator;
+	}
+
 	public String displayTitle() {
+		if (this.separator) {
+			return "";
+		}
+
 		if (this.badge == null || this.badge.isBlank()) {
 			return this.title;
 		}

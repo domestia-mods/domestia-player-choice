@@ -35,7 +35,7 @@ public class ScrollableTextMenu {
 		int visibleIndex = ((int) mouseY - y) / ROW_HEIGHT;
 		int actualIndex = this.scrollOffset + visibleIndex;
 
-		if (actualIndex < 0 || actualIndex >= nodes.size()) {
+		if (actualIndex < 0 || actualIndex >= nodes.size() || nodes.get(actualIndex).isSeparator()) {
 			return -1;
 		}
 
@@ -86,6 +86,11 @@ public class ScrollableTextMenu {
 
 			PlayerChoiceMenuNode node = nodes.get(nodeIndex);
 			int rowY = y + visibleIndex * ROW_HEIGHT;
+			if (node.isSeparator()) {
+				renderSeparator(graphics, x, rowY, width);
+				continue;
+			}
+
 			boolean hovered = mouseX >= x && mouseX < x + width && mouseY >= rowY && mouseY < rowY + ROW_HEIGHT;
 
 			graphics.fill(x, rowY, x + width, rowY + ROW_HEIGHT - 1, hovered ? COLOR_ROW_HOVER : COLOR_ROW_NORMAL);
@@ -120,6 +125,12 @@ public class ScrollableTextMenu {
 		}
 
 		graphics.setTooltipForNextFrame(font, Component.literal(fullTitle), mouseX, mouseY);
+	}
+
+	private void renderSeparator(GuiGraphicsExtractor graphics, int x, int rowY, int width) {
+		int lineY = rowY + ROW_HEIGHT / 2;
+		int margin = ROW_PADDING_X * 2;
+		graphics.fill(x + margin, lineY, x + width - margin, lineY + 1, COLOR_SCROLL_TRACK);
 	}
 
 	private void renderNodeTitle(GuiGraphicsExtractor graphics, Font font, PlayerChoiceMenuNode node, int x, int y, int maxWidth) {
