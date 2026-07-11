@@ -48,8 +48,14 @@ public final class ImagePageViewer {
 			int areaWidth,
 			int areaHeight
 	) {
-		PageLayout layout = calculateLayout(pageTexture, areaX, areaY, areaWidth, areaHeight);
+		renderPage(graphics, pageTexture, calculateLayout(pageTexture, areaX, areaY, areaWidth, areaHeight));
+	}
 
+	public static void renderPage(
+			GuiGraphicsExtractor graphics,
+			Identifier pageTexture,
+			PageLayout layout
+	) {
 		graphics.blit(
 				RenderPipelines.GUI_TEXTURED,
 				pageTexture,
@@ -107,6 +113,13 @@ public final class ImagePageViewer {
 
 		public int bottom() {
 			return this.y + this.height;
+		}
+
+		public boolean contains(double mouseX, double mouseY) {
+			return mouseX >= this.x
+					&& mouseX < this.right()
+					&& mouseY >= this.y
+					&& mouseY < this.bottom();
 		}
 	}
 

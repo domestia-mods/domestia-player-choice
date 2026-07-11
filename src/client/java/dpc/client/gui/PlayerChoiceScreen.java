@@ -1,15 +1,15 @@
 package dpc.client.gui;
 
+import dpc.DpcCalendar;
 import dpc.client.catalog.PlayerChoiceCatalog;
 import dpc.client.catalog.PlayerChoiceCatalogLoader;
 import dpc.client.catalog.PlayerChoiceMenuNode;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
@@ -19,34 +19,44 @@ import java.util.Deque;
 import java.util.List;
 
 public class PlayerChoiceScreen extends Screen {
-	private static final Identifier MENU_BACKGROUND_TEXTURE = Identifier.fromNamespaceAndPath("domestia_player_choice", "textures/gui/player_choice/menu_background.png");
+	private static final Identifier MENU_BACKGROUND_TEXTURE = Identifier.fromNamespaceAndPath(
+			"domestia_player_choice",
+			"textures/gui/player_choice/menu_background.png"
+	);
+
 	private static final int MENU_TEXTURE_WIDTH = 680;
 	private static final int MENU_TEXTURE_HEIGHT = 720;
-	private static final int MENU_PRINT_X = 66;
-	private static final int MENU_PRINT_Y = 30;
-	private static final int MENU_PRINT_WIDTH = 246;
-	private static final int MENU_PRINT_HEIGHT = 302;
-	private static final int MENU_PRINT_PADDING = 12;
+	private static final int MENU_WIDTH = 340;
+	private static final int MENU_MAX_HEIGHT = 360;
+
+	private static final int BAR_TEXTURE_X = 134;
+	private static final int BAR_TEXTURE_WIDTH = 489;
+	private static final int BAR_TEXTURE_HEIGHT = 32;
+	private static final int TOP_BAR_TEXTURE_Y = 61;
+	private static final int BOTTOM_BAR_TEXTURE_Y = 629;
+	private static final int HOME_TEXTURE_SIZE = 32;
+	private static final int BAR_TEXT_PADDING_TEXTURE_X = 12;
+
+	private static final int CONTENT_PADDING_TEXTURE_X = 12;
+	private static final int CONTENT_PADDING_TOP_TEXTURE_Y = 16;
+	private static final int CONTENT_PADDING_BOTTOM_TEXTURE_Y = 0;
+	private static final int TITLE_TEXTURE_HEIGHT = 48;
+	private static final int TITLE_UNDERLINE_TEXTURE_OFFSET = 30;
+	private static final int TITLE_UNDERLINE_TEXTURE_HEIGHT = 2;
+	private static final int GALLERY_NAV_TEXTURE_HEIGHT = 28;
+	private static final int GALLERY_IMAGE_GAP_TEXTURE = 8;
+
+	private static final int PAGE_MARGIN = 16;
+	private static final int PAGE_VERTICAL_MARGIN = 20;
+
 	private static final int COLOR_TITLE = 0xFF303030;
 	private static final int COLOR_EMPTY = 0xFF777777;
 	private static final int COLOR_PAGE_OVERLAY = 0xD5000000;
 	private static final int COLOR_MENU_OVERLAY = 0x80000000;
-
-	private static final int MENU_WIDTH = 340;
-	private static final int MENU_MAX_HEIGHT = 360;
-	private static final int MENU_TITLE_HEIGHT = 24;
-	private static final int MENU_TITLE_UNDERLINE_OFFSET = 15;
-	private static final int MENU_BACK_ROW_HEIGHT = 18;
-	private static final int MENU_BACK_PADDING_X = 6;
-	private static final int MENU_BACK_TEXT_OFFSET_Y = 5;
-	private static final int MENU_BACK_TAIL_WIDTH = 6;
-	private static final int COLOR_MENU_BACK_BACKGROUND = 0xFF303030;
-	private static final int COLOR_MENU_BACK_TEXT = 0xFFFFFFFF;
-	private static final int BUTTON_WIDTH = 70;
-	private static final int BUTTON_HEIGHT = 15;
-	private static final int ARROW_BUTTON_WIDTH = 28;
-	private static final int PAGE_MARGIN = 16;
-	private static final int PAGE_VERTICAL_MARGIN = 20;
+	private static final int COLOR_BAR_TEXT = 0xFFD4D4D4;
+	private static final int COLOR_BAR_TEXT_HOVERED = 0xFFFFFFFF;
+	private static final int COLOR_GALLERY_NAV = 0xFF202020;
+	private static final int COLOR_GALLERY_NAV_HOVERED = 0xFF000000;
 
 	private final PlayerChoiceCatalog catalog;
 	private final ScrollableTextMenu scrollableMenu = new ScrollableTextMenu();
@@ -59,9 +69,8 @@ public class PlayerChoiceScreen extends Screen {
 	private List<Identifier> currentPages = List.of();
 	private List<String> currentText = List.of();
 	private int currentPageIndex;
-	private Button backButton;
-	private Button previousPageButton;
-	private Button nextPageButton;
+	private long cachedCalendarMinute = Long.MIN_VALUE;
+	private String cachedCalendarText = DpcCalendar.formatDisplay(0L);
 
 	public PlayerChoiceScreen() {
 		this(PlayerChoiceCatalogLoader.loadCurrentCatalog());
@@ -75,12 +84,6 @@ public class PlayerChoiceScreen extends Screen {
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		this.rebuildNavigationWidgets();
-	}
-
-	@Override
 	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER) {
 			graphics.fill(0, 0, this.width, this.height, COLOR_PAGE_OVERLAY);
@@ -88,21 +91,15 @@ public class PlayerChoiceScreen extends Screen {
 		}
 
 		graphics.fill(0, 0, this.width, this.height, COLOR_MENU_OVERLAY);
-
-		int menuX = this.getMenuX();
-		int menuY = this.getMenuY();
-		int menuWidth = this.getMenuWidth();
-		int menuHeight = this.getMenuHeight();
-
 		graphics.blit(
 				RenderPipelines.GUI_TEXTURED,
 				MENU_BACKGROUND_TEXTURE,
-				menuX,
-				menuY,
+				this.getMenuX(),
+				this.getMenuY(),
 				0.0F,
 				0.0F,
-				menuWidth,
-				menuHeight,
+				this.getMenuWidth(),
+				this.getMenuHeight(),
 				MENU_TEXTURE_WIDTH,
 				MENU_TEXTURE_HEIGHT,
 				MENU_TEXTURE_WIDTH,
@@ -113,9 +110,9 @@ public class PlayerChoiceScreen extends Screen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER) {
-			this.renderPageViewer(graphics);
+			this.renderFullscreenPageViewer(graphics);
 		} else {
-			this.renderMenu(graphics, mouseX, mouseY);
+			this.renderInterface(graphics, mouseX, mouseY);
 		}
 
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
@@ -137,21 +134,52 @@ public class PlayerChoiceScreen extends Screen {
 
 	@Override
 	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-		if (super.mouseClicked(event, doubleClick)) {
+		if (event.button() != 0) {
+			return super.mouseClicked(event, doubleClick);
+		}
+
+		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER) {
+			this.closeFullscreenPageViewer();
 			return true;
 		}
 
-		if ((this.mode != PlayerChoiceScreenMode.MENU && this.mode != PlayerChoiceScreenMode.TEXT) || event.button() != 0) {
-			return false;
+		if (this.isHomeClicked(event.x(), event.y())) {
+			this.goHome();
+			return true;
 		}
 
-		if (this.isMenuBackEntryClicked(event.x(), event.y())) {
-			this.goBack();
+		if (this.isBottomLeftActionClicked(event.x(), event.y())) {
+			if (this.canGoBack()) {
+				this.goBack();
+			} else {
+				this.onClose();
+			}
+
 			return true;
+		}
+
+		if (this.mode == PlayerChoiceScreenMode.GALLERY) {
+			if (this.isPreviousPageClicked(event.x(), event.y())) {
+				this.previousPage();
+				return true;
+			}
+
+			if (this.isNextPageClicked(event.x(), event.y())) {
+				this.nextPage();
+				return true;
+			}
+
+			if (!this.currentPages.isEmpty()
+					&& this.getEmbeddedPageLayout().contains(event.x(), event.y())) {
+				this.mode = PlayerChoiceScreenMode.PAGE_VIEWER;
+				return true;
+			}
+
+			return super.mouseClicked(event, doubleClick);
 		}
 
 		if (this.mode == PlayerChoiceScreenMode.TEXT) {
-			return false;
+			return super.mouseClicked(event, doubleClick);
 		}
 
 		int hoveredIndex = this.scrollableMenu.getHoveredIndex(
@@ -165,7 +193,7 @@ public class PlayerChoiceScreen extends Screen {
 		);
 
 		if (hoveredIndex < 0) {
-			return false;
+			return super.mouseClicked(event, doubleClick);
 		}
 
 		this.openNode(this.currentMenu.get(hoveredIndex));
@@ -206,7 +234,12 @@ public class PlayerChoiceScreen extends Screen {
 
 	@Override
 	public boolean keyPressed(KeyEvent event) {
-		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER) {
+		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER && event.isEscape()) {
+			this.closeFullscreenPageViewer();
+			return true;
+		}
+
+		if (this.mode == PlayerChoiceScreenMode.GALLERY) {
 			if (event.isLeft()) {
 				this.previousPage();
 				return true;
@@ -221,32 +254,61 @@ public class PlayerChoiceScreen extends Screen {
 		return super.keyPressed(event);
 	}
 
-	private void renderMenu(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-		int contentX = this.getContentX();
-		int contentY = this.getContentY();
-		int contentWidth = this.getContentWidth();
+	private void renderInterface(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+		this.renderCalendar(graphics);
+		this.renderBottomBarActions(graphics, mouseX, mouseY);
+		this.renderMenuTitle(
+				graphics,
+				this.currentMenuTitle,
+				this.getContentX(),
+				this.getContentY(),
+				this.getContentWidth(),
+				COLOR_TITLE
+		);
 
-		if (this.hasMenuBackEntry()) {
-			this.renderMenuBackEntry(graphics, mouseX, mouseY);
+		switch (this.mode) {
+			case MENU -> this.renderMenuContent(graphics, mouseX, mouseY);
+			case TEXT -> this.renderTextContent(graphics);
+			case GALLERY -> this.renderGalleryContent(graphics, mouseX, mouseY);
+			case PAGE_VIEWER -> {
+			}
 		}
+	}
 
-		this.renderMenuTitle(graphics, this.currentMenuTitle, contentX, this.getTitleY(), contentWidth, COLOR_TITLE);
+	private void renderCalendar(GuiGraphicsExtractor graphics) {
+		String calendarText = this.getCalendarText();
+		int right = this.getTopBarRight() - this.scaleTextureXSize(BAR_TEXT_PADDING_TEXTURE_X);
+		int y = this.getTopBarY() + Math.max(0, (this.getTopBarHeight() - this.font.lineHeight) / 2);
+		graphics.text(this.font, calendarText, right - this.font.width(calendarText), y, COLOR_BAR_TEXT, false);
+	}
 
-		if (this.mode == PlayerChoiceScreenMode.TEXT) {
-			this.scrollableTextBlock.render(
-					graphics,
-					this.font,
-					this.getListX(),
-					this.getListY(),
-					this.getListWidth(),
-					this.getListHeight(),
-					this.currentText
-			);
-			return;
-		}
+	private void renderBottomBarActions(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+		boolean hovered = this.isBottomLeftActionClicked(mouseX, mouseY);
+		int color = hovered ? COLOR_BAR_TEXT_HOVERED : COLOR_BAR_TEXT;
+		int triangleWidth = 5;
+		int triangleHeight = 9;
+		int triangleX = this.getBottomBarX() + this.scaleTextureXSize(BAR_TEXT_PADDING_TEXTURE_X);
+		int centerY = this.getBottomBarY() + this.getBottomBarHeight() / 2 - 1;
 
+		this.renderLeftTriangle(graphics, triangleX, centerY, triangleWidth, triangleHeight, color);
+
+		int textX = triangleX + triangleWidth + this.scaleTextureXSize(8);
+		int textY = this.getBottomBarY()
+				+ Math.max(0, (this.getBottomBarHeight() - this.font.lineHeight) / 2)
+				+ 1;
+		String actionText = this.canGoBack() ? "Back" : "Exit";
+		graphics.text(this.font, actionText, textX, textY, color, false);
+	}
+
+	private void renderMenuContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (this.currentMenu.isEmpty()) {
-			graphics.centeredText(this.font, Component.literal("No entries available."), contentX + contentWidth / 2, this.getListY() + 20, COLOR_EMPTY);
+			graphics.centeredText(
+					this.font,
+					Component.literal("No entries available."),
+					this.getContentX() + this.getContentWidth() / 2,
+					this.getListY() + 20,
+					COLOR_EMPTY
+			);
 			return;
 		}
 
@@ -263,32 +325,81 @@ public class PlayerChoiceScreen extends Screen {
 		);
 	}
 
-	private void renderPageViewer(GuiGraphicsExtractor graphics) {
+	private void renderTextContent(GuiGraphicsExtractor graphics) {
+		this.scrollableTextBlock.render(
+				graphics,
+				this.font,
+				this.getListX(),
+				this.getListY(),
+				this.getListWidth(),
+				this.getListHeight(),
+				this.currentText
+		);
+	}
+
+	private void renderGalleryContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (this.currentPages.isEmpty()) {
-			graphics.centeredText(this.font, Component.literal("No gallery images available."), this.width / 2, this.height / 2, 0xFFFFFFFF);
+			graphics.centeredText(
+					this.font,
+					Component.literal("No gallery images available."),
+					this.getContentX() + this.getContentWidth() / 2,
+					this.getListY() + 20,
+					COLOR_EMPTY
+			);
 			return;
 		}
 
 		Identifier currentPage = this.currentPages.get(this.currentPageIndex);
-		ImagePageViewer.PageLayout layout = this.getCurrentPageLayout();
-		ImagePageViewer.renderPage(
-				graphics,
-				currentPage,
-				this.getPageAreaX(),
-				this.getPageAreaY(),
-				this.getPageAreaWidth(),
-				this.getPageAreaHeight()
-		);
+		ImagePageViewer.renderPage(graphics, currentPage, this.getEmbeddedPageLayout());
+		this.renderGalleryNavigation(graphics, mouseX, mouseY);
+	}
 
-		int bottomBandHeight = Math.max(0, this.height - layout.bottom());
-		int pageNumberY = layout.bottom() + Math.max(2, (bottomBandHeight - this.font.lineHeight) / 2);
-		graphics.centeredText(
-				this.font,
-				Component.literal((this.currentPageIndex + 1) + " / " + this.currentPages.size()),
-				layout.x() + layout.width() / 2,
-				pageNumberY,
-				0xFFFFFFFF
-		);
+	private void renderGalleryNavigation(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+		int textY = this.getGalleryNavigationY()
+				+ Math.max(0, (this.getGalleryNavigationHeight() - this.font.lineHeight) / 2);
+
+		if (this.currentPageIndex > 0) {
+			int color = this.isPreviousPageClicked(mouseX, mouseY)
+					? COLOR_GALLERY_NAV_HOVERED
+					: COLOR_GALLERY_NAV;
+			graphics.text(this.font, "< Prev", this.getContentX(), textY, color, false);
+		}
+
+		String pageNumber = (this.currentPageIndex + 1) + "/" + this.currentPages.size();
+		int pageNumberX = this.getContentX()
+				+ (this.getContentWidth() - this.font.width(pageNumber)) / 2;
+		graphics.text(this.font, pageNumber, pageNumberX, textY, COLOR_GALLERY_NAV, false);
+
+		if (this.currentPageIndex < this.currentPages.size() - 1) {
+			String nextText = "Next >";
+			int color = this.isNextPageClicked(mouseX, mouseY)
+					? COLOR_GALLERY_NAV_HOVERED
+					: COLOR_GALLERY_NAV;
+			graphics.text(
+					this.font,
+					nextText,
+					this.getContentRight() - this.font.width(nextText),
+					textY,
+					color,
+					false
+			);
+		}
+	}
+
+	private void renderFullscreenPageViewer(GuiGraphicsExtractor graphics) {
+		if (this.currentPages.isEmpty()) {
+			graphics.centeredText(
+					this.font,
+					Component.literal("No gallery images available."),
+					this.width / 2,
+					this.height / 2,
+					0xFFFFFFFF
+			);
+			return;
+		}
+
+		Identifier currentPage = this.currentPages.get(this.currentPageIndex);
+		ImagePageViewer.renderPage(graphics, currentPage, this.getFullscreenPageLayout());
 	}
 
 	private void openNode(PlayerChoiceMenuNode node) {
@@ -301,15 +412,15 @@ public class PlayerChoiceScreen extends Screen {
 			this.currentMenuTitle = node.title();
 			this.currentMenu = node.children();
 			this.scrollableMenu.reset();
-			this.rebuildNavigationWidgets();
 			return;
 		}
 
 		if (node.hasGallery()) {
-			this.mode = PlayerChoiceScreenMode.PAGE_VIEWER;
+			this.menuHistory.push(new MenuState(this.currentMenuTitle, this.currentMenu));
+			this.currentMenuTitle = node.title();
 			this.currentPages = node.gallery();
 			this.currentPageIndex = 0;
-			this.rebuildNavigationWidgets();
+			this.mode = PlayerChoiceScreenMode.GALLERY;
 			return;
 		}
 
@@ -324,7 +435,6 @@ public class PlayerChoiceScreen extends Screen {
 			this.currentText = node.text();
 			this.mode = PlayerChoiceScreenMode.TEXT;
 			this.scrollableTextBlock.reset();
-			this.rebuildNavigationWidgets();
 		}
 	}
 
@@ -368,25 +478,40 @@ public class PlayerChoiceScreen extends Screen {
 
 	private void goBack() {
 		if (this.mode == PlayerChoiceScreenMode.PAGE_VIEWER) {
-			this.mode = PlayerChoiceScreenMode.MENU;
-			this.currentPages = List.of();
-			this.currentPageIndex = 0;
-			this.rebuildNavigationWidgets();
+			this.closeFullscreenPageViewer();
 			return;
 		}
 
-		if (this.mode == PlayerChoiceScreenMode.TEXT) {
-			this.currentText = List.of();
-			this.mode = PlayerChoiceScreenMode.MENU;
+		if (this.menuHistory.isEmpty()) {
+			return;
 		}
 
-		if (!this.menuHistory.isEmpty()) {
-			MenuState state = this.menuHistory.pop();
-			this.currentMenuTitle = state.title();
-			this.currentMenu = state.nodes();
-			this.scrollableMenu.reset();
-			this.rebuildNavigationWidgets();
-		}
+		this.currentPages = List.of();
+		this.currentText = List.of();
+		this.currentPageIndex = 0;
+		this.mode = PlayerChoiceScreenMode.MENU;
+
+		MenuState state = this.menuHistory.pop();
+		this.currentMenuTitle = state.title();
+		this.currentMenu = state.nodes();
+		this.scrollableMenu.reset();
+		this.scrollableTextBlock.reset();
+	}
+
+	private void goHome() {
+		this.mode = PlayerChoiceScreenMode.MENU;
+		this.currentMenu = this.catalog.menu();
+		this.currentMenuTitle = this.catalog.title();
+		this.currentPages = List.of();
+		this.currentText = List.of();
+		this.currentPageIndex = 0;
+		this.menuHistory.clear();
+		this.scrollableMenu.reset();
+		this.scrollableTextBlock.reset();
+	}
+
+	private void closeFullscreenPageViewer() {
+		this.mode = PlayerChoiceScreenMode.GALLERY;
 	}
 
 	private void previousPage() {
@@ -395,7 +520,6 @@ public class PlayerChoiceScreen extends Screen {
 		}
 
 		this.currentPageIndex = Math.max(0, this.currentPageIndex - 1);
-		this.rebuildNavigationWidgets();
 	}
 
 	private void nextPage() {
@@ -404,107 +528,6 @@ public class PlayerChoiceScreen extends Screen {
 		}
 
 		this.currentPageIndex = Math.min(this.currentPages.size() - 1, this.currentPageIndex + 1);
-		this.rebuildNavigationWidgets();
-	}
-
-	private void rebuildNavigationWidgets() {
-		this.clearWidgets();
-
-		ImagePageViewer.PageLayout pageLayout = this.getCurrentPageLayout();
-		int backButtonX = pageLayout.x();
-		int backButtonY = Math.max(2, (pageLayout.y() - BUTTON_HEIGHT) / 2);
-
-		this.backButton = this.addRenderableWidget(Button.builder(
-				Component.literal("Back"),
-				button -> this.goBack()
-		).bounds(
-				backButtonX,
-				backButtonY,
-				BUTTON_WIDTH,
-				BUTTON_HEIGHT
-		).build());
-
-		this.backButton.visible = this.mode == PlayerChoiceScreenMode.PAGE_VIEWER;
-
-		int bottomButtonY = this.mode == PlayerChoiceScreenMode.PAGE_VIEWER
-				? pageLayout.bottom() + Math.max(2, (this.height - pageLayout.bottom() - BUTTON_HEIGHT) / 2)
-				: this.height / 2 - BUTTON_HEIGHT / 2;
-
-		this.previousPageButton = this.addRenderableWidget(Button.builder(
-				Component.literal("<"),
-				button -> this.previousPage()
-		).bounds(
-				this.mode == PlayerChoiceScreenMode.PAGE_VIEWER ? pageLayout.x() : PAGE_MARGIN,
-				bottomButtonY,
-				ARROW_BUTTON_WIDTH,
-				BUTTON_HEIGHT
-		).build());
-
-		this.nextPageButton = this.addRenderableWidget(Button.builder(
-				Component.literal(">"),
-				button -> this.nextPage()
-		).bounds(
-				this.mode == PlayerChoiceScreenMode.PAGE_VIEWER ? pageLayout.right() - ARROW_BUTTON_WIDTH : this.width - PAGE_MARGIN - ARROW_BUTTON_WIDTH,
-				bottomButtonY,
-				ARROW_BUTTON_WIDTH,
-				BUTTON_HEIGHT
-		).build());
-
-		this.updatePageButtons();
-	}
-
-	private void updatePageButtons() {
-		boolean pageMode = this.mode == PlayerChoiceScreenMode.PAGE_VIEWER;
-
-		if (this.previousPageButton != null) {
-			this.previousPageButton.visible = pageMode;
-			this.previousPageButton.active = pageMode && this.currentPageIndex > 0;
-		}
-
-		if (this.nextPageButton != null) {
-			this.nextPageButton.visible = pageMode;
-			this.nextPageButton.active = pageMode && this.currentPageIndex < this.currentPages.size() - 1;
-		}
-
-		if (this.backButton != null) {
-			this.backButton.visible = pageMode;
-		}
-	}
-
-	private ImagePageViewer.PageLayout getCurrentPageLayout() {
-		Identifier pageTexture = this.currentPages.isEmpty()
-				? Identifier.fromNamespaceAndPath("domestia_player_choice", "textures/gui/player_choice/fallback/page_001.png")
-				: this.currentPages.get(this.currentPageIndex);
-
-		return ImagePageViewer.calculateLayout(
-				pageTexture,
-				this.getPageAreaX(),
-				this.getPageAreaY(),
-				this.getPageAreaWidth(),
-				this.getPageAreaHeight()
-		);
-	}
-
-	private void renderMenuBackEntry(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-		int x = this.getMenuBackEntryX();
-		int y = this.getMenuBackEntryY();
-		int textY = y + MENU_BACK_TEXT_OFFSET_Y;
-		String text = " Back";
-		int bodyWidth = this.font.width(text);
-		int bodyHeight = this.font.lineHeight + 1;
-		boolean hovered = this.isMenuBackEntryClicked(mouseX, mouseY);
-		int color = hovered ? 0xFF454545 : COLOR_MENU_BACK_BACKGROUND;
-
-		this.renderMenuBackTail(graphics, x, textY - 1, MENU_BACK_TAIL_WIDTH, bodyHeight, color);
-		graphics.fill(x + MENU_BACK_TAIL_WIDTH, textY - 1, x + MENU_BACK_TAIL_WIDTH + bodyWidth, textY - 1 + bodyHeight, color);
-		graphics.text(this.font, text, x + MENU_BACK_TAIL_WIDTH, textY, COLOR_MENU_BACK_TEXT, false);
-	}
-
-	private void renderMenuBackTail(GuiGraphicsExtractor graphics, int x, int y, int width, int height, int color) {
-		for (int column = 0; column < width; column++) {
-			int inset = (width - column - 1) * height / (width * 2);
-			graphics.fill(x + column, y + inset, x + column + 1, y + height - inset, color);
-		}
 	}
 
 	private void renderMenuTitle(GuiGraphicsExtractor graphics, String text, int x, int y, int width, int color) {
@@ -512,8 +535,27 @@ public class PlayerChoiceScreen extends Screen {
 		int titleX = x + Math.max(0, (width - this.font.width(visibleText)) / 2);
 		graphics.text(this.font, visibleText, titleX, y, color, false);
 
-		int lineY = y + MENU_TITLE_UNDERLINE_OFFSET;
-		graphics.fill(x, lineY, x + width, lineY + 1, color);
+		int lineY = y + this.getTitleUnderlineOffset();
+		graphics.fill(x, lineY, x + width, lineY + this.getTitleUnderlineHeight(), color);
+	}
+
+	private void renderLeftTriangle(
+			GuiGraphicsExtractor graphics,
+			int x,
+			int centerY,
+			int width,
+			int height,
+			int color
+	) {
+		int halfHeight = height / 2;
+
+		for (int row = 0; row < height; row++) {
+			int distanceFromCenter = Math.abs(row - halfHeight);
+			int rowWidth = Math.max(1, width - distanceFromCenter);
+			int rowX = x + width - rowWidth;
+			int rowY = centerY - halfHeight + row;
+			graphics.fill(rowX, rowY, x + width, rowY + 1, color);
+		}
 	}
 
 	private String trimToWidth(String value, int maxWidth) {
@@ -532,57 +574,108 @@ public class PlayerChoiceScreen extends Screen {
 		return builder + ellipsis;
 	}
 
-	private boolean hasMenuBackEntry() {
-		return (this.mode == PlayerChoiceScreenMode.MENU || this.mode == PlayerChoiceScreenMode.TEXT) && !this.menuHistory.isEmpty();
-	}
+	private String getCalendarText() {
+		long gameTime = this.minecraft != null && this.minecraft.level != null
+				? this.minecraft.level.getGameTime()
+				: 0L;
+		long calendarMinute = Math.max(0L, gameTime) / DpcCalendar.TICKS_PER_MINUTE;
 
-	private boolean isMenuBackEntryClicked(double mouseX, double mouseY) {
-		if (!this.hasMenuBackEntry()) {
-			return false;
+		if (calendarMinute != this.cachedCalendarMinute) {
+			this.cachedCalendarMinute = calendarMinute;
+			this.cachedCalendarText = DpcCalendar.formatDisplay(gameTime);
 		}
 
-		int x = this.getMenuBackEntryX();
-		int y = this.getMenuBackEntryY();
-		int width = MENU_BACK_TAIL_WIDTH + this.font.width(" Back");
-		int height = this.font.lineHeight + 1;
-		int hitY = y + MENU_BACK_TEXT_OFFSET_Y - 1;
-		return mouseX >= x && mouseX < x + width && mouseY >= hitY && mouseY < hitY + height;
-	}
-
-	private int getMenuBackEntryX() {
-		return this.getContentX() + MENU_BACK_PADDING_X;
-	}
-
-	private int getMenuBackEntryY() {
-		return this.getContentY();
-	}
-
-	private int getTitleY() {
-		return this.getContentY() + (this.hasMenuBackEntry() ? MENU_BACK_ROW_HEIGHT : 0) + 4;
-	}
-
-	private int getMenuHeaderHeight() {
-		return MENU_TITLE_HEIGHT + (this.hasMenuBackEntry() ? MENU_BACK_ROW_HEIGHT : 0);
-	}
-
-	private int getPageAreaX() {
-		return PAGE_MARGIN;
-	}
-
-	private int getPageAreaY() {
-		return PAGE_VERTICAL_MARGIN;
-	}
-
-	private int getPageAreaWidth() {
-		return Math.max(1, this.width - PAGE_MARGIN * 2);
-	}
-
-	private int getPageAreaHeight() {
-		return Math.max(1, this.height - PAGE_VERTICAL_MARGIN * 2);
+		return this.cachedCalendarText;
 	}
 
 	private boolean canGoBack() {
-		return this.mode == PlayerChoiceScreenMode.PAGE_VIEWER || this.mode == PlayerChoiceScreenMode.TEXT || !this.menuHistory.isEmpty();
+		return !this.menuHistory.isEmpty();
+	}
+
+	private boolean isHomeClicked(double mouseX, double mouseY) {
+		return isInside(
+				mouseX,
+				mouseY,
+				this.getHomeX(),
+				this.getBottomBarY(),
+				this.getHomeWidth(),
+				this.getBottomBarHeight()
+		);
+	}
+
+	private boolean isBottomLeftActionClicked(double mouseX, double mouseY) {
+		return isInside(
+				mouseX,
+				mouseY,
+				this.getBottomBarX(),
+				this.getBottomBarY(),
+				Math.max(1, this.getHomeX() - this.getBottomBarX()),
+				this.getBottomBarHeight()
+		);
+	}
+
+	private boolean isPreviousPageClicked(double mouseX, double mouseY) {
+		if (this.mode != PlayerChoiceScreenMode.GALLERY || this.currentPageIndex <= 0) {
+			return false;
+		}
+
+		return isInside(
+				mouseX,
+				mouseY,
+				this.getContentX(),
+				this.getGalleryNavigationY(),
+				Math.max(1, this.getContentWidth() / 3),
+				this.getGalleryNavigationHeight()
+		);
+	}
+
+	private boolean isNextPageClicked(double mouseX, double mouseY) {
+		if (this.mode != PlayerChoiceScreenMode.GALLERY
+				|| this.currentPageIndex >= this.currentPages.size() - 1) {
+			return false;
+		}
+
+		int third = Math.max(1, this.getContentWidth() / 3);
+		return isInside(
+				mouseX,
+				mouseY,
+				this.getContentRight() - third,
+				this.getGalleryNavigationY(),
+				third,
+				this.getGalleryNavigationHeight()
+		);
+	}
+
+	private ImagePageViewer.PageLayout getEmbeddedPageLayout() {
+		Identifier pageTexture = this.getCurrentPageTexture();
+		return ImagePageViewer.calculateLayout(
+				pageTexture,
+				this.getContentX(),
+				this.getListY(),
+				this.getContentWidth(),
+				this.getGalleryImageAreaHeight()
+		);
+	}
+
+	private ImagePageViewer.PageLayout getFullscreenPageLayout() {
+		return ImagePageViewer.calculateLayout(
+				this.getCurrentPageTexture(),
+				PAGE_MARGIN,
+				PAGE_VERTICAL_MARGIN,
+				Math.max(1, this.width - PAGE_MARGIN * 2),
+				Math.max(1, this.height - PAGE_VERTICAL_MARGIN * 2)
+		);
+	}
+
+	private Identifier getCurrentPageTexture() {
+		if (this.currentPages.isEmpty()) {
+			return Identifier.fromNamespaceAndPath(
+					"domestia_player_choice",
+					"textures/gui/player_choice/fallback/page_001.png"
+			);
+		}
+
+		return this.currentPages.get(this.currentPageIndex);
 	}
 
 	private int getMenuWidth() {
@@ -601,20 +694,77 @@ public class PlayerChoiceScreen extends Screen {
 		return (this.height - this.getMenuHeight()) / 2;
 	}
 
+	private int getTopBarX() {
+		return this.textureToScreenX(BAR_TEXTURE_X);
+	}
+
+	private int getTopBarRight() {
+		return this.textureToScreenX(BAR_TEXTURE_X + BAR_TEXTURE_WIDTH);
+	}
+
+	private int getTopBarY() {
+		return this.textureToScreenY(TOP_BAR_TEXTURE_Y);
+	}
+
+	private int getTopBarHeight() {
+		return Math.max(1, this.textureToScreenY(TOP_BAR_TEXTURE_Y + BAR_TEXTURE_HEIGHT) - this.getTopBarY());
+	}
+
+	private int getBottomBarX() {
+		return this.textureToScreenX(BAR_TEXTURE_X);
+	}
+
+	private int getBottomBarY() {
+		return this.textureToScreenY(BOTTOM_BAR_TEXTURE_Y);
+	}
+
+	private int getBottomBarHeight() {
+		return Math.max(1, this.textureToScreenY(BOTTOM_BAR_TEXTURE_Y + BAR_TEXTURE_HEIGHT) - this.getBottomBarY());
+	}
+
+	private int getHomeX() {
+		int homeTextureX = BAR_TEXTURE_X + (BAR_TEXTURE_WIDTH - HOME_TEXTURE_SIZE) / 2;
+		return this.textureToScreenX(homeTextureX);
+	}
+
+	private int getHomeWidth() {
+		int homeTextureX = BAR_TEXTURE_X + (BAR_TEXTURE_WIDTH - HOME_TEXTURE_SIZE) / 2;
+		return Math.max(1, this.textureToScreenX(homeTextureX + HOME_TEXTURE_SIZE) - this.getHomeX());
+	}
+
 	private int getContentX() {
-		return this.getMenuX() + this.scaleMenuX(MENU_PRINT_X + MENU_PRINT_PADDING);
+		return this.textureToScreenX(BAR_TEXTURE_X + CONTENT_PADDING_TEXTURE_X);
+	}
+
+	private int getContentRight() {
+		return this.textureToScreenX(BAR_TEXTURE_X + BAR_TEXTURE_WIDTH - CONTENT_PADDING_TEXTURE_X);
 	}
 
 	private int getContentY() {
-		return this.getMenuY() + this.scaleMenuY(MENU_PRINT_Y + MENU_PRINT_PADDING);
+		return this.textureToScreenY(TOP_BAR_TEXTURE_Y + BAR_TEXTURE_HEIGHT + CONTENT_PADDING_TOP_TEXTURE_Y);
+	}
+
+	private int getContentBottom() {
+		return this.textureToScreenY(BOTTOM_BAR_TEXTURE_Y - CONTENT_PADDING_BOTTOM_TEXTURE_Y);
 	}
 
 	private int getContentWidth() {
-		return Math.max(1, this.scaleMenuX(MENU_PRINT_WIDTH - MENU_PRINT_PADDING * 2));
+		return Math.max(1, this.getContentRight() - this.getContentX());
 	}
 
-	private int getContentHeight() {
-		return Math.max(1, this.scaleMenuY(MENU_PRINT_HEIGHT - MENU_PRINT_PADDING * 2));
+	private int getTitleHeight() {
+		return Math.max(this.font.lineHeight + 4, this.scaleTextureYSize(TITLE_TEXTURE_HEIGHT));
+	}
+
+	private int getTitleUnderlineOffset() {
+		return Math.min(
+				this.getTitleHeight() - this.getTitleUnderlineHeight(),
+				Math.max(this.font.lineHeight + 2, this.scaleTextureYSize(TITLE_UNDERLINE_TEXTURE_OFFSET))
+		);
+	}
+
+	private int getTitleUnderlineHeight() {
+		return Math.max(1, this.scaleTextureYSize(TITLE_UNDERLINE_TEXTURE_HEIGHT));
 	}
 
 	private int getListX() {
@@ -622,7 +772,7 @@ public class PlayerChoiceScreen extends Screen {
 	}
 
 	private int getListY() {
-		return this.getContentY() + this.getMenuHeaderHeight();
+		return this.getContentY() + this.getTitleHeight();
 	}
 
 	private int getListWidth() {
@@ -630,15 +780,47 @@ public class PlayerChoiceScreen extends Screen {
 	}
 
 	private int getListHeight() {
-		return Math.max(1, this.getContentHeight() - this.getMenuHeaderHeight());
+		return Math.max(1, this.getContentBottom() - this.getListY());
 	}
 
-	private int scaleMenuX(int value) {
-		return Math.round((float) value * this.getMenuWidth() / MENU_WIDTH);
+	private int getGalleryNavigationHeight() {
+		return Math.max(this.font.lineHeight + 2, this.scaleTextureYSize(GALLERY_NAV_TEXTURE_HEIGHT));
 	}
 
-	private int scaleMenuY(int value) {
-		return Math.round((float) value * this.getMenuHeight() / MENU_MAX_HEIGHT);
+	private int getGalleryNavigationY() {
+		return this.getContentBottom() - this.getGalleryNavigationHeight();
+	}
+
+	private int getGalleryImageAreaHeight() {
+		int gap = this.scaleTextureYSize(GALLERY_IMAGE_GAP_TEXTURE);
+		return Math.max(1, this.getGalleryNavigationY() - gap - this.getListY());
+	}
+
+	private int textureToScreenX(int textureX) {
+		return this.getMenuX() + Math.round((float) textureX * this.getMenuWidth() / MENU_TEXTURE_WIDTH);
+	}
+
+	private int textureToScreenY(int textureY) {
+		return this.getMenuY() + Math.round((float) textureY * this.getMenuHeight() / MENU_TEXTURE_HEIGHT);
+	}
+
+	private int scaleTextureXSize(int textureWidth) {
+		return Math.max(1, Math.round((float) textureWidth * this.getMenuWidth() / MENU_TEXTURE_WIDTH));
+	}
+
+	private int scaleTextureYSize(int textureHeight) {
+		return Math.max(1, Math.round((float) textureHeight * this.getMenuHeight() / MENU_TEXTURE_HEIGHT));
+	}
+
+	private static boolean isInside(
+			double mouseX,
+			double mouseY,
+			int x,
+			int y,
+			int width,
+			int height
+	) {
+		return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
 	}
 
 	private record MenuState(String title, List<PlayerChoiceMenuNode> nodes) {

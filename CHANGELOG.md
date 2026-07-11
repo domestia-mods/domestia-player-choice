@@ -2,6 +2,32 @@
 
 ## Released
 
+## 0.1.4
+
+### Added
+
+- Added a global calendar derived from the server world tick counter and shared across all dimensions.
+- Added a live in-game date and time display to the shared catalog interface.
+- Added a Home control for returning directly to the catalog root.
+- Added an Exit control to the root page as the counterpart to Back on nested pages.
+- Added text-page separators for lines containing three or more hyphens.
+
+### Changed
+
+- Reworked the shared catalog interface around persistent top status and bottom navigation bars.
+- Moved gallery navigation into the main interface while retaining click-to-open fullscreen image viewing.
+- Fullscreen image viewing now returns to the embedded gallery on click or Escape and no longer includes page navigation.
+- Gallery images now preserve their original aspect ratio, scale to the maximum available content area, and remain centered.
+- Expanded the usable content width by reducing horizontal padding.
+- Standardized content spacing, scrollbar placement, and separator widths across menus, text pages, and galleries.
+
+### Fixed
+
+- Fixed duplicated gallery page numbering.
+- Fixed Back and Exit label alignment and improved the navigation triangle rendering.
+- Fixed the text scrollbar overlapping the bottom navigation bar.
+- Restored the thinner header separator while preserving catalog and text separator styling.
+
 ## 0.1.3
 
 ### Added

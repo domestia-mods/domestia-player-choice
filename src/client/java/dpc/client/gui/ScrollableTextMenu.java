@@ -17,6 +17,7 @@ public class ScrollableTextMenu {
 	private static final int COLOR_ROW_NORMAL = 0x00FFFFFF;
 	private static final int COLOR_SCROLL_TRACK = 0x55303030;
 	private static final int COLOR_SCROLL_THUMB = 0xAA303030;
+	private static final int COLOR_SEPARATOR = 0x80303030;
 	private static final int COLOR_BADGE_BACKGROUND = 0xFF303030;
 	private static final int COLOR_BADGE_TEXT = 0xFFFFFFFF;
 	private static final int BADGE_TAIL_WIDTH = 6;
@@ -76,6 +77,7 @@ public class ScrollableTextMenu {
 		graphics.enableScissor(x, y, x + width, y + height);
 
 		int visibleRows = Math.max(1, height / ROW_HEIGHT);
+		boolean hasScrollbar = nodes.size() > visibleRows;
 
 		for (int visibleIndex = 0; visibleIndex < visibleRows; visibleIndex++) {
 			int nodeIndex = this.scrollOffset + visibleIndex;
@@ -87,7 +89,7 @@ public class ScrollableTextMenu {
 			PlayerChoiceMenuNode node = nodes.get(nodeIndex);
 			int rowY = y + visibleIndex * ROW_HEIGHT;
 			if (node.isSeparator()) {
-				renderSeparator(graphics, x, rowY, width);
+				renderSeparator(graphics, x, rowY, width, hasScrollbar);
 				continue;
 			}
 
@@ -127,10 +129,17 @@ public class ScrollableTextMenu {
 		graphics.setTooltipForNextFrame(font, Component.literal(fullTitle), mouseX, mouseY);
 	}
 
-	private void renderSeparator(GuiGraphicsExtractor graphics, int x, int rowY, int width) {
+	private void renderSeparator(
+			GuiGraphicsExtractor graphics,
+			int x,
+			int rowY,
+			int width,
+			boolean hasScrollbar
+	) {
 		int lineY = rowY + ROW_HEIGHT / 2;
-		int margin = ROW_PADDING_X * 2;
-		graphics.fill(x + margin, lineY, x + width - margin, lineY + 1, COLOR_SCROLL_TRACK);
+		int scrollbarReserve = hasScrollbar ? 7 : 0;
+		int lineRight = Math.max(x + 1, x + width - scrollbarReserve);
+		graphics.fill(x, lineY, lineRight, lineY + 1, COLOR_SEPARATOR);
 	}
 
 	private void renderNodeTitle(GuiGraphicsExtractor graphics, Font font, PlayerChoiceMenuNode node, int x, int y, int maxWidth) {
